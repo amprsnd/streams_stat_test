@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  scope 'stats' do
+    post 'watch',         to: 'stats#watch',    as: 'watch'
+    get  'customer/:id',  to: 'stats#customer', as: 'customer'
+    get  'stream/:id',    to: 'stats#stream',   as: 'stream'
+  end
+
 end
