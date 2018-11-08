@@ -4,7 +4,7 @@ require 'rack/test'
 
 require_relative '../streams_stats.rb'
 
-class MyTest < MiniTest::Unit::TestCase
+class ApiTest < MiniTest::Unit::TestCase
 
   include Rack::Test::Methods
 
