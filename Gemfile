@@ -9,3 +9,5 @@ gem 'rufus-scheduler', '~> 3.5', '>= 3.5.2'
 gem 'redis'
 
 gem 'minitest', '~> 5.11', '>= 5.11.3'
+
+gem 'httparty'
