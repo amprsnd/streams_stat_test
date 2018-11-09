@@ -11,3 +11,5 @@ gem 'redis'
 gem 'minitest', '~> 5.11', '>= 5.11.3'
 
 gem 'httparty'
+# gem 'derailed_benchmarks'
+# gem 'stackprof'

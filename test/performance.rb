@@ -12,9 +12,9 @@ scheduler = Rufus::Scheduler.new # max_work_threads: 77
 # Test params
 c = {
   uri: "http://#{app.settings.bind}:#{app.settings.port}",
-  customers: 1000,
-  streams: 10,
-  test_time: '5m',
+  customers: 10000,
+  streams: 100,
+  test_time: '10m',
   stats_time: '30s'
 }
 
@@ -41,7 +41,7 @@ end
 # start watching tasks
 c[:customers].times do |i|
 
-  puts "start watching #{i}"
+  # puts "start watching #{i}"
   customer_id = rand(0..c[:customers])
   stream_id = rand(0..c[:streams])
 
@@ -58,33 +58,34 @@ end
 # start stats task
 stats_task = scheduler.schedule_every c[:stats_time] do
   
-  puts 'Customers:'
-  puts '==============================='
+  # puts 'Customers:'
+  # puts '==============================='
   customers.each do |c|
     response = HTTParty.get("#{customer_uri}/#{c}")
     result = JSON.parse(response.body)
-    puts "customer ##{c} watching streams: #{result['count']}"
+    # puts "customer ##{c} watching streams: #{result['count']}"
   end
-  puts '==============================='
+  # puts '==============================='
 
-  puts 'Streams:'
-  puts '==============================='
+  # puts 'Streams:'
+  # puts '==============================='
   streams.each do |s|
     response = HTTParty.get("#{stream_uri}/#{s}")
     result = JSON.parse(response.body)
-    puts "stream ##{s} watching clients: #{result['count']}"
+    # puts "stream ##{s} watching clients: #{result['count']}"
   end
-  puts '==============================='
+  # puts '==============================='
   
 end
 
 # set end of test
 enough = scheduler.in c[:test_time] do
+  # puts '----------'
+  # puts 'completed'
   customers_tasks.each do |t|
     t.unschedule()
   end
   stats_task.unschedule()
-  puts 'completed'
 end
 
 scheduler.join
